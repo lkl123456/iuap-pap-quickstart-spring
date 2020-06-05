@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+    
+    <mapper namespace="com.yonyou.iuap.purpayment.dao.Purpayment_detailMapper">
+
+<resultMap id="BaseResultMap" type="com.yonyou.iuap.purpayment.entity.Purpayment_detail">
+<id column="id" jdbcType="VARCHAR" property="id" />
+            <result column="paymentid"  property="paymentid" />
+            <result column="memo"  property="memo" />
+            <result column="price"  property="price" />
+            <result column="num"  property="num" />
+            <result column="material"  property="material" />
+            <result column="money"  property="money" />
+
+    <result column="dr" property="dr" />
+    <result column="ts" property="ts" />
+    <result column="last_modified" property="lastModified" />
+    <result column="last_modify_user" property="lastModifyUser" />
+    <result column="create_time" property="createTime" />
+    <result column="create_user" property="createUser" />
+
+    <result column="bpm_state" property="bpmState" />
+    <result column="tenant_id" property="tenantId" />
+    </resultMap>
+
+    <select id="selectAllByPage"  resultMap="BaseResultMap">
+SELECT  t.* FROM train_purpayment_detail t WHERE 1=1 and t.dr=0
+
+    <if test="condition != null">
+    <if test="condition.searchMap.id!=null and condition.searchMap.id!='' ">
+and t.ID = #{condition.searchMap.id}
+    </if>
+            <if test="condition.searchMap.paymentid!=null and condition.searchMap.paymentid!='' ">
+                            and t.paymentid = #{condition.searchMap.paymentid}
+        </if>
+
+
+
+            <if test="condition.searchMap.memo!=null and condition.searchMap.memo!='' ">
+                            and t.memo = #{condition.searchMap.memo}
+        </if>
+
+
+
+            <if test="condition.searchMap.price!=null and condition.searchMap.price!='' ">
+                            and t.price = #{condition.searchMap.price}
+        </if>
+
+
+
+            <if test="condition.searchMap.num!=null and condition.searchMap.num!='' ">
+                            and t.num = #{condition.searchMap.num}
+        </if>
+
+
+
+            <if test="condition.searchMap.material!=null and condition.searchMap.material!='' ">
+                            and t.material = #{condition.searchMap.material}
+        </if>
+
+
+
+            <if test="condition.searchMap.money!=null and condition.searchMap.money!='' ">
+                            and t.money = #{condition.searchMap.money}
+        </if>
+
+
+
+        <if test="condition.searchMap.tenantId!=null and condition.searchMap.tenantId!='' ">
+        and t.tenant_id = #{condition.searchMap.tenantId}
+        </if>
+
+    </if>
+order by ts desc
+    <if test="page != null">
+    <if test="page.sort!=null">
+order by
+    <foreach collection="page.sort" item="item" separator=" ">
+    ${item.property}  ${item.direction}
+    </foreach>
+    </if>
+    </if>
+    </select>
+
+    </mapper>
+      

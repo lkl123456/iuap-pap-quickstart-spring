@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<RefViewModelVO code="post_level"
+		i18nkey="ja.res.ref.0001" name="岗位职级" path="common-ref" type="6">
+		<thead>
+			<field code="code" i18nkey="ja.res.ref.0002">职级编码</field>
+			<field code="type" i18nkey="ja.res.ref.0003" i18n="true">职级类型</field>
+			<field code="post_level" i18nkey="ja.res.ref.0004" i18n="true">职级级别
+			</field>
+		</thead>
+
+		<table name="IUAPD_RANKS">
+			<field code="id">ID</field>
+			<field code="refpk">ID</field>
+			<field code="refcode">code</field>
+			<field code="refname">post_level</field>
+			<field code="extension">code</field>
+			<field code="extension">post_level</field>
+			<field code="extension">type</field>
+			<field code="tenant">TENANT_ID</field>
+			<!--<field code="sysId">SYS_ID</field> -->
+			<filters>
+				<filter code="likeSearchField" value="post_level,code,type" />
+				<!--<filter code="post_level" value="="/> -->
+				<!--<filter code="type" value="="/> -->
+			</filters>
+		</table>
+	</RefViewModelVO>
+	<RefViewModelVO code="bankacc" name="银行账号"
+		path="common-ref" type="2" extService="com.yonyou.iuap.refservice.BankaccRefServiceImpl">
+		<thead>
+			<field code="bankacc" i18nkey="">银行账号</field>
+			<field code="bankname" i18nkey="">户名</field>
+			<field code="acctype" i18nkey="">账号类型</field>
+		</thead>
+		<table name="train_bankacc">
+			<field code="id">ID</field>
+			<field code="refpk">ID</field>
+			<field code="refcode">bankacc</field>
+			<field code="refname">bankname</field>
+			<field code="extension">acctype</field>
+			<field code="extension">bankacc</field>
+			<field code="extension">bankname</field>
+			<field code="extension">banktype</field>
+		</table>
+	</RefViewModelVO>
+
+	<RefViewModelVO code="banktype" i18nkey="" name="银行类别"
+		path="common-ref" type="1" group="train">
+		<thead>
+			<field code="typecode" i18nkey="">银行类别编码</field>
+			<field code="typename" i18nkey="">银行类别名称</field>
+		</thead>
+		<tableTree name="train_banktype">
+			<field code="id">ID</field>
+			<field code="refpk">ID</field>
+			<field code="refcode">typecode</field>
+			<field code="refname">typename</field>
+			<field code="refname">typename</field>
+			<field code="pid">PARENT_ID</field>
+			<field code="extension">typecode</field>
+			<field code="extension">typename</field>
+		</tableTree>
+	</RefViewModelVO>
+	<RefViewModelVO code="supplier" name="供应商"
+		path="common-ref" type="3" group="train">
+		<thead>
+			<field code="code">供应商编码</field>
+			<field code="name">供应商名称</field>
+		</thead>
+		<tableTree name="train_supplier_class">
+			<field code="id">ID</field>
+			<field code="refpk">ID</field>
+			<field code="refcode">code</field>
+			<field code="refname">name</field>
+			<field code="pid">parentid</field>
+			<field code="extension">code</field>
+			<field code="extension">name</field>
+		</tableTree>
+		<table name="train_supplier">
+			<field code="id">ID</field>
+			<field code="refpk">ID</field>
+			<field code="refcode">code</field>
+			<field code="refname">name</field>
+			<field code="extension">code</field>
+			<field code="extension">name</field>
+			<field code="tenant">TENANT_ID</field>
+			<field code="fid" ref="train_supplier_class">class</field>
+			<field code="condition">and enable='Y' </field>
+		</table>
+	</RefViewModelVO>
+	<RefViewModelVO code="material" name="物料"
+		path="common-ref" type="3" group="train">
+		<thead>
+			<field code="materialcode">物料编码</field>
+			<field code="materialname">物料名称</field>
+		</thead>
+		<tableTree name="train_materialclass">
+			<field code="id">ID</field>
+			<field code="refpk">ID</field>
+			<field code="refcode">code</field>
+			<field code="refname">name</field>
+			<field code="pid">parentid</field>
+			<field code="extension">classcode</field>
+			<field code="extension">classname</field>
+		</tableTree>
+		<table name="train_material">
+			<field code="id">ID</field>
+			<field code="refpk">ID</field>
+			<field code="refcode">materialcode</field>
+			<field code="refname">materialname</field>
+			<field code="extension">materialcode</field>
+			<field code="extension">materialname</field>
+			<field code="tenant">TENANT_ID</field>
+			<field code="fid" ref="materclass">class</field>
+		</table>
+	</RefViewModelVO>
+</root>

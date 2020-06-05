@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+    <mapper namespace="com.yonyou.iuap.purpayment.dao.PurpaymentMapper">
+
+<resultMap id="BaseResultMap" type="com.yonyou.iuap.purpayment.entity.Purpayment">
+<id column="id" jdbcType="VARCHAR" property="id" />
+            <result column="sourceid"  property="sourceid" />
+            <result column="org"  property="org" />
+            <result column="receiveacc"  property="receiveacc" />
+            <result column="banktype"  property="banktype" />
+            <result column="dept"  property="dept" />
+            <result column="paydate"  property="paydate" />
+            <result column="total"  property="total" />
+            <result column="payreason"  property="payreason" />
+            <result column="supplier"  property="supplier" />
+            <result column="paybankname"  property="paybankname" />
+            <result column="paybankacc"  property="paybankacc" />
+            <result column="billno"  property="billno" />
+            <result column="paytype"  property="paytype" />
+            <result column="currtype"  property="currtype" />
+        <result column="dr" property="dr" />
+    <result column="ts" property="ts" />
+    <result column="last_modified" property="lastModified" />
+    <result column="last_modify_user" property="lastModifyUser" />
+    <result column="create_time" property="createTime" />
+    <result column="create_user" property="createUser" />
+
+    <result column="bpm_state" property="bpmState" />
+    <result column="tenant_id" property="tenantId" />
+    <result column="inputperson" property="inputperson" />
+    <result column="inputdate" property="inputdate" />
+
+    </resultMap>
+
+
+    <select id="selectAllByPage"  resultMap="BaseResultMap">
+SELECT  t.* FROM train_purpayment t WHERE 1 =1 and t.dr=0
+
+    <if test="condition != null">
+    <if test="condition.searchMap.id!=null and condition.searchMap.id!='' ">
+and t.ID = #{condition.searchMap.id}
+    </if>
+
+            <if test="condition.searchMap.sourceid!=null and condition.searchMap.sourceid!='' ">
+                and t.sourceid = #{condition.searchMap.sourceid}
+
+
+
+        </if>
+
+
+
+            <if test="condition.searchMap.org!=null and condition.searchMap.org!='' ">
+                and t.org = #{condition.searchMap.org}
+
+
+
+        </if>
+
+
+
+            <if test="condition.searchMap.receiveacc!=null and condition.searchMap.receiveacc!='' ">
+                and t.receiveacc LIKE CONCAT( CONCAT('%', #{condition.searchMap.receiveacc}),'%')
+
+
+
+        </if>
+
+
+
+            <if test="condition.searchMap.banktype!=null and condition.searchMap.banktype!='' ">
+                and t.banktype = #{condition.searchMap.banktype}
+
+
+
+        </if>
+
+
+
+            <if test="condition.searchMap.dept!=null and condition.searchMap.dept!='' ">
+                and t.dept = #{condition.searchMap.dept}
+
+
+
+        </if>
+
+
+
+            <if test="condition.searchMap.paydate!=null and condition.searchMap.paydate!='' ">
+                and t.paydate <![CDATA[ <= ]]> #{condition.searchMap.paydate}
+
+
+
+        </if>
+
+
+
+            <if test="condition.searchMap.total!=null and condition.searchMap.total!='' ">
+                and t.total <![CDATA[ >= ]]> #{condition.searchMap.total}
+
+
+
+        </if>
+
+
+
+            <if test="condition.searchMap.payreason!=null and condition.searchMap.payreason!='' ">
+                and t.payreason LIKE CONCAT( CONCAT('%', #{condition.searchMap.payreason}),'%')
+
+
+
+        </if>
+
+
+
+            <if test="condition.searchMap.supplier!=null and condition.searchMap.supplier!='' ">
+                and t.supplier = #{condition.searchMap.supplier}
+
+
+
+        </if>
+
+
+
+            <if test="condition.searchMap.paybankname!=null and condition.searchMap.paybankname!='' ">
+                and t.paybankname = #{condition.searchMap.paybankname}
+
+
+
+        </if>
+
+
+
+            <if test="condition.searchMap.paybankacc!=null and condition.searchMap.paybankacc!='' ">
+                and t.paybankacc = #{condition.searchMap.paybankacc}
+
+
+
+        </if>
+
+
+
+            <if test="condition.searchMap.billno!=null and condition.searchMap.billno!='' ">
+                and t.billno = #{condition.searchMap.billno}
+
+
+
+        </if>
+
+
+
+            <if test="condition.searchMap.paytype!=null and condition.searchMap.paytype!='' ">
+                and t.paytype = #{condition.searchMap.paytype}
+
+
+
+        </if>
+
+
+
+            <if test="condition.searchMap.currtype!=null and condition.searchMap.currtype!='' ">
+                and t.currtype = #{condition.searchMap.currtype}
+
+
+
+        </if>
+
+
+        <if test="condition.searchMap.tenantId!=null and condition.searchMap.tenantId!='' ">
+        and t.tenant_id = #{condition.searchMap.tenantId}
+        </if>
+    </if>
+order by ts desc
+    <if test="page != null">
+    <if test="page.sort!=null">
+
+    <foreach collection="page.sort" item="item" separator=" ">
+,${item.property}  ${item.direction}
+    </foreach>
+    </if>
+    </if>
+    </select>
+        <select id="selectListByExcelData"  resultMap="BaseResultMap" parameterType="java.util.List">
+        select t.* FROM train_purpayment t WHERE 1=1 and t.dr=0 and
+    t.id in
+        <foreach collection="list" item="item" index="index"
+                 separator="," open="(" close=")">
+        #{item}
+        </foreach>
+        </select>
+    </mapper>
